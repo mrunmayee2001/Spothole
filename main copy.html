@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Map</title>
+
+    <style type="text/css">
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;
+        /* The height is 400 pixels */
+        width: 100%;
+        /* The width is the width of the web page */
+      }
+    </style>
+    <script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: 18.9894, lng: 73.1175 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 19,
+          center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+        });
+
+        
+        const potholes = {
+            p1: {
+                center: {lat: 18.98945, lng: 73.11785},
+                color: "#FF0000",
+            },
+            p2: {
+                center: { lat: 18.98945, lng: 73.11790 },
+                color: "#FF0000",
+            },
+            p3: {
+                center: { lat: 18.98945, lng: 73.11795 },
+                color: "#FF0000",
+            },
+            p4: {
+                center: { lat: 18.98945, lng: 73.11800 },
+                color: "#FFA500",
+            },
+            p5: {
+                center: { lat: 18.98942, lng: 73.11700 },
+                color: "#FFA500",
+            },
+            p6: {
+                center: { lat: 18.98940, lng: 73.11695 },
+                color: "#FFA500",
+            },
+            p7: {
+                center: { lat: 18.98940, lng: 73.11690 },
+                color: "#FFA500",
+            },
+            p8: {
+                center: { lat: 18.98940, lng: 73.11685 },
+                color: "#FFFF00",
+            },
+            p9: {
+                center: { lat: 18.98970, lng: 73.11745 },
+                color: "#FFFF00",
+            },
+            p10: {
+                center: { lat: 18.98975, lng: 73.11742 },
+                color: "#FFFF00",
+            },
+            p11: {
+                center: { lat: 18.98980, lng: 73.11790 },
+                color: "#FFFF00",
+            }
+        };
+
+        for (const pothole in potholes) {
+            // Add the circle for this city to the map.
+            const cityCircle = new google.maps.Circle({
+                strokeColor: potholes[pothole].color,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: potholes[pothole].color,
+                fillOpacity: 0.35,
+                map,
+                center: potholes[pothole].center,
+                radius: 5,
+            });
+        }
+    }
+
+    </script>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMML2Evgk9ywrHkHQT68aUrD7IacojBZg&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="./style1.css" />
+		<link rel="stylesheet" href="./style.css" />
+		<title>Spothole</title>
+		<style type="text/css">
+			/* Set the size of the div element that contains the map */
+			#map {
+			  height: 100%;
+			  /* The height is 400 pixels */
+			  width: 100%;
+			  /* The width is the width of the web page */
+			}
+		  </style>
+		  <script src=
+		  "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+		  </script>
+		  <script src=
+		  "https://www.gstatic.com/firebasejs/3.7.4/firebase.js">
+		  </script>
+		  <!-- <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script> -->
+		  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+	</head>
+	<body>
+		<script type="module">
+			// Import the functions you need from the SDKs you need
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+			import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+			// TODO: Add SDKs for Firebase products that you want to use
+			// https://firebase.google.com/docs/web/setup#available-libraries
+		  
+			// Your web app's Firebase configuration
+			// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+			const firebaseConfig = {
+			  apiKey: "AIzaSyDMML2Evgk9ywrHkHQT68aUrD7IacojBZg",
+			  authDomain: "spothole-9191d.firebaseapp.com",
+			  projectId: "spothole-9191d",
+			  storageBucket: "spothole-9191d.appspot.com",
+			  messagingSenderId: "469483015613",
+			  appId: "1:469483015613:web:d43f2d55ee0f9b3e37d6d4",
+			  measurementId: "G-JKEC3B6LRW"
+			};
+		  
+			// Initialize Firebase
+			const app = initializeApp(firebaseConfig);
+			const analytics = getAnalytics(app);
+		  </script>
+
+		<script>
+			var database = firebase.firestore();
+
+			//const potholes ={};
+
+			// var potholesRef = database.ref('RoadConditions');
+			// potholesRef.once('value', (snapshot) => {
+			// snapshot.forEach((childSnapshot) => {
+			// 	var childKey = childSnapshot.key;
+			// 	var childData = childSnapshot.val();
+			// 	potholes[childKey].push(childData);
+			// });
+			// });
+			db.collection("RoadConditions").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					console.log(`${doc.id} => ${doc.data()}`);
+					//potholes[childKey].push(childData);
+				});
+			});
+
+			var list = function(potholes) {
+			for (var prop in potholes) {
+				//document.getElementById('aaron-family').innerHTML += '<li>' + prop + '</li>';
+				console.log(prop);
+			}
+			};
+
+			// Initialize and add the map
+			function initMap() {
+			// The location of Uluru
+			const uluru = { lat: 18.9894, lng: 73.1175 };
+			// The map, centered at Uluru
+			const map = new google.maps.Map(document.getElementById("map"), {
+				zoom: 19,
+				center: uluru,
+			});
+			
+			// The marker, positioned at Uluru
+			const marker = new google.maps.Marker({
+				position: uluru,
+				map: map,
+			});
+
+			
+			const potholes = {
+            p1: {
+                center: {lat: 18.98945, lng: 73.11785},
+                color: "#FF0000",
+            },
+            p2: {
+                center: { lat: 18.98945, lng: 73.11790 },
+                color: "#FF0000",
+            },
+            p3: {
+                center: { lat: 18.98945, lng: 73.11795 },
+                color: "#FF0000",
+            },
+            p4: {
+                center: { lat: 18.98945, lng: 73.11800 },
+                color: "#FFA500",
+            },
+            p5: {
+                center: { lat: 18.98942, lng: 73.11700 },
+                color: "#FFA500",
+            },
+            p6: {
+                center: { lat: 18.98940, lng: 73.11695 },
+                color: "#FFA500",
+            },
+            p7: {
+                center: { lat: 18.98940, lng: 73.11690 },
+                color: "#FFA500",
+            },
+            p8: {
+                center: { lat: 18.98940, lng: 73.11685 },
+                color: "#FFFF00",
+            },
+            p9: {
+                center: { lat: 18.98970, lng: 73.11745 },
+                color: "#FFFF00",
+            },
+            p10: {
+                center: { lat: 18.98975, lng: 73.11742 },
+                color: "#FFFF00",
+            },
+            p11: {
+                center: { lat: 18.98980, lng: 73.11790 },
+                color: "#FFFF00",
+            }
+        };
+
+        for (const pothole in potholes) {
+            // Add the circle for this city to the map.
+            const cityCircle = new google.maps.Circle({
+                strokeColor: potholes[pothole].color,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: potholes[pothole].color,
+                fillOpacity: 0.35,
+                map,
+                center: potholes[pothole].center,
+                radius: 5,
+            });
+        }
+		}
+
+		</script>
+
+
+
+
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMML2Evgk9ywrHkHQT68aUrD7IacojBZg&callback=initMap&libraries=&v=weekly"
+		async ></script>
+		<header>
+			<div class="logo-container">
+				<img src="Logo.png"  >
+				<h4 class="logo">BLOG</h4>
+			</div>
+			<nav>
+				<ul class="nav-links">
+					<li><a class="nav-link" href="home.html">Home</a></li>
+					<li><a class="nav-link" href="post.html">Explore</a></li>
+				</ul>
+		</header>
+
+		<div class="container1">
+		 <div class="cont">
+			<div id="map"></div>
+		</div>
+		</div>
+    </body>
+    </html
